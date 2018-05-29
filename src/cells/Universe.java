@@ -24,7 +24,12 @@ public class Universe {
                 newMatrix[i][j] = false;
             }
         }
-        
+
+    }
+
+    public void createCell(int row, int col) {
+        matrix[row][col] = true;
+
     }
 
     public boolean[][] getMatrix() {

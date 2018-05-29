@@ -40,6 +40,11 @@ public class Board extends javax.swing.JPanel implements ActionListener{
     private void initComponents() {
 
         setBackground(new java.awt.Color(102, 204, 255));
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -53,11 +58,26 @@ public class Board extends javax.swing.JPanel implements ActionListener{
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+       int col=  evt.getPoint().x/squareWidth();
+       int row=  evt.getPoint().y/squareHeight();
+       universe.createCell(row, col);
+       repaint();
+    }//GEN-LAST:event_formMouseClicked
+
     private void initMyComponents() {
         SingletonUniverse cs = SingletonUniverse.getInstance();
         universe = new Universe();
         timer = new Timer(cs.getDeltaTime(), this);
         timer.start();
+    }
+    
+    public void initGame(){
+        timer.start();
+    }
+    
+    public void stop(){
+        timer.stop();
     }
 
     @Override
