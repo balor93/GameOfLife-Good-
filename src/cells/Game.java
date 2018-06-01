@@ -5,6 +5,10 @@
  */
 package cells;
 
+import com.sun.org.apache.xerces.internal.util.DOMUtil;
+import java.awt.event.ActionListener;
+import javax.swing.Timer;
+
 /**
  *
  * @author alu20491147x
@@ -14,8 +18,13 @@ public class Game extends javax.swing.JFrame {
     /**
      * Creates new form NewJFrame
      */
+    
+    
     public Game() {
         initComponents();
+        jSliderSize.addChangeListener(board2);
+        jSliderSpeed.addChangeListener(board2);
+       
     }
 
     /**
@@ -30,12 +39,12 @@ public class Game extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
-        jSlider1 = new javax.swing.JSlider();
-        jSlider2 = new javax.swing.JSlider();
-        jButtonStart = new javax.swing.JButton();
+        jSliderSize = new javax.swing.JSlider();
         jButtonStop = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jSliderSpeed = new javax.swing.JSlider();
+        jButtonStart = new javax.swing.JButton();
         board2 = new cells.Board();
 
         jPanel3.setBackground(new java.awt.Color(153, 255, 255));
@@ -61,15 +70,16 @@ public class Game extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 239, Short.MAX_VALUE)
+            .addGap(0, 238, Short.MAX_VALUE)
         );
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.LINE_END);
 
-        jButtonStart.setText("Start");
-        jButtonStart.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonStartActionPerformed(evt);
+        jSliderSize.setMinimum(20);
+        jSliderSize.setName("Size"); // NOI18N
+        jSliderSize.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jSliderSizeStateChanged(evt);
             }
         });
 
@@ -84,15 +94,31 @@ public class Game extends javax.swing.JFrame {
 
         jLabel2.setText("size cells");
 
+        jSliderSpeed.setMaximum(700);
+        jSliderSpeed.setMinimum(50);
+        jSliderSpeed.setName("Speed"); // NOI18N
+        jSliderSpeed.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jSliderSpeedStateChanged(evt);
+            }
+        });
+
+        jButtonStart.setText("Start");
+        jButtonStart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonStartActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jSlider1, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
-                    .addComponent(jSlider2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSliderSize, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSliderSpeed, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(32, 32, 32)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
@@ -109,18 +135,18 @@ public class Game extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addContainerGap()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1)
+                            .addComponent(jSliderSpeed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(13, 13, 13)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSlider2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSliderSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2)))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButtonStart)
-                            .addComponent(jButtonStop))))
+                            .addComponent(jButtonStop)
+                            .addComponent(jButtonStart))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -136,7 +162,7 @@ public class Game extends javax.swing.JFrame {
         );
         board2Layout.setVerticalGroup(
             board2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 239, Short.MAX_VALUE)
+            .addGap(0, 238, Short.MAX_VALUE)
         );
 
         getContentPane().add(board2, java.awt.BorderLayout.CENTER);
@@ -144,13 +170,31 @@ public class Game extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStartActionPerformed
-        board2.initGame();    }//GEN-LAST:event_jButtonStartActionPerformed
-
     private void jButtonStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStopActionPerformed
         board2.stop();
     }//GEN-LAST:event_jButtonStopActionPerformed
 
+    private void jSliderSizeStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSliderSizeStateChanged
+    /*
+    SingletonUniverse.getInstance().setNumRows(jSliderSize.getValue());
+    SingletonUniverse.getInstance().setNumCols(jSliderSize.getValue());
+    Universe= new
+    repaint();
+     */          
+    }//GEN-LAST:event_jSliderSizeStateChanged
+
+    private void jSliderSpeedStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSliderSpeedStateChanged
+       /* SingletonUniverse.getInstance().setDeltaTime(jSliderSpeed.getValue());
+        board2.changeTimer();
+        */
+    }//GEN-LAST:event_jSliderSpeedStateChanged
+
+    private void jButtonStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStartActionPerformed
+        board2.play();
+    }//GEN-LAST:event_jButtonStartActionPerformed
+    
+   
+    
     /**
      * @param args the command line arguments
      */
@@ -196,7 +240,7 @@ public class Game extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JSlider jSlider1;
-    private javax.swing.JSlider jSlider2;
+    private javax.swing.JSlider jSliderSize;
+    private javax.swing.JSlider jSliderSpeed;
     // End of variables declaration//GEN-END:variables
 }

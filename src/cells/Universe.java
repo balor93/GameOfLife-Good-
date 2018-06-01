@@ -106,5 +106,20 @@ public class Universe {
         }
         return counter;
     }
+    public int getNumRowsAndCols(){
+    return matrix.length;
+    }
+    
+    public Universe getUniverse(){
+        Universe uni=new Universe();
+        for (int i = 0; i <Math.min(getNumRowsAndCols(), uni.getNumRowsAndCols()); i++) {
+            for (int j = 0; j < Math.min(getNumRowsAndCols(), uni.getNumRowsAndCols()); j++) {
+                if(matrix[i][j]){
+                    uni.createCell(i, j);
+                }
+            }
+        }
+        return uni;
+    }
 
 }

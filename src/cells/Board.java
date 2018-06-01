@@ -8,16 +8,20 @@ package cells;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JSlider;
 import javax.swing.Timer;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 /**
  *
  * @author alu20491147x
  */
-public class Board extends javax.swing.JPanel implements ActionListener{
-    
+public class Board extends javax.swing.JPanel implements ActionListener, ChangeListener {
+
     private Universe universe;
     private Timer timer;
+    private Game game;
 
     /**
      * Creates new form Board
@@ -26,9 +30,6 @@ public class Board extends javax.swing.JPanel implements ActionListener{
         initComponents();
         initMyComponents();
     }
-    
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -59,10 +60,10 @@ public class Board extends javax.swing.JPanel implements ActionListener{
     }// </editor-fold>//GEN-END:initComponents
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
-       int col=  evt.getPoint().x/squareWidth();
-       int row=  evt.getPoint().y/squareHeight();
-       universe.createCell(row, col);
-       repaint();
+        int col = evt.getPoint().x / squareWidth();
+        int row = evt.getPoint().y / squareHeight();
+        universe.createCell(row, col);
+        repaint();
     }//GEN-LAST:event_formMouseClicked
 
     private void initMyComponents() {
@@ -71,12 +72,12 @@ public class Board extends javax.swing.JPanel implements ActionListener{
         timer = new Timer(cs.getDeltaTime(), this);
         timer.start();
     }
-    
-    public void initGame(){
+
+    public void play() {
         timer.start();
     }
-    
-    public void stop(){
+
+    public void stop() {
         timer.stop();
     }
 
@@ -85,7 +86,7 @@ public class Board extends javax.swing.JPanel implements ActionListener{
         universe.tick();
         repaint();
     }
-    
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -101,13 +102,39 @@ public class Board extends javax.swing.JPanel implements ActionListener{
             }
         }
     }
-    
+
     private int squareWidth() {
         return getWidth() / SingletonUniverse.getInstance().getNumCols();
     }
-    
+
     private int squareHeight() {
         return getHeight() / SingletonUniverse.getInstance().getNumRows();
+    }
+
+    public Timer getTimer() {
+        return timer;
+    }
+
+    public void changeTimer() {
+        timer.stop();
+        timer = new Timer(SingletonUniverse.getInstance().getDeltaTime(), this);
+        timer.start();;
+    }
+
+    @Override
+    public void stateChanged(ChangeEvent ce) {
+        JSlider slider = (JSlider) ce.getSource();
+        if (slider.getName().equals("Size")) {
+            SingletonUniverse.getInstance().setNumRows(slider.getValue());
+            SingletonUniverse.getInstance().setNumCols(slider.getValue());
+            
+            universe=universe.getUniverse();
+            repaint();
+        } else {
+            SingletonUniverse.getInstance().setDeltaTime(slider.getValue());
+            timer.setDelay(SingletonUniverse.getInstance().getDeltaTime());
+        }
+        //changeTimer();
     }
 
 

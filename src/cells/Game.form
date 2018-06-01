@@ -60,7 +60,7 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="239" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="238" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
@@ -77,9 +77,9 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="jSlider1" pref="94" max="32767" attributes="0"/>
-                      <Component id="jSlider2" pref="0" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jSliderSize" min="-2" pref="94" max="-2" attributes="0"/>
+                      <Component id="jSliderSpeed" min="-2" pref="94" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -100,21 +100,21 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jSlider1" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                              <Component id="jSliderSpeed" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jSlider2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jSliderSize" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jButtonStart" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jButtonStop" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jButtonStart" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -124,16 +124,13 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JSlider" name="jSlider1">
-        </Component>
-        <Component class="javax.swing.JSlider" name="jSlider2">
-        </Component>
-        <Component class="javax.swing.JButton" name="jButtonStart">
+        <Component class="javax.swing.JSlider" name="jSliderSize">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Start"/>
+            <Property name="minimum" type="int" value="20"/>
+            <Property name="name" type="java.lang.String" value="Size" noResource="true"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonStartActionPerformed"/>
+            <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="jSliderSizeStateChanged"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButtonStop">
@@ -153,6 +150,24 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="size cells"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JSlider" name="jSliderSpeed">
+          <Properties>
+            <Property name="maximum" type="int" value="700"/>
+            <Property name="minimum" type="int" value="50"/>
+            <Property name="name" type="java.lang.String" value="Speed" noResource="true"/>
+          </Properties>
+          <Events>
+            <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="jSliderSpeedStateChanged"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="jButtonStart">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Start"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonStartActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -176,7 +191,7 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="239" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="238" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
